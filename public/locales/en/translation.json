@@ -1,0 +1,32 @@
+{
+  "DEFAULT_LAYOUT": {
+    "HEADER": {
+      "HOME": "Hone",
+      "PRODUCT": "Product",
+      "PROFILE": "Profile",
+      "LOGOUT": "Logout",
+      "LOGIN": "Login",
+      "REGISTER": "Register"
+    }
+  },
+
+  "PRODUCT_MODULE": {
+    "CREATE_MODAL": {
+      "NAME": {
+        "PRODUCT": "Product Name",
+        "IMAGE": "Product Image",
+        "CATEGORY": "Product Category",
+        "BRAND": "Product Brand",
+        "DESCRIPTION": "Product Description",
+        "PRICE": "Product Price"
+      },
+      "PLACE_HOLDER": {
+        "PRODUCT": "Product Name",
+        "BRAND": "Product Brand",
+        "DESCRIPTION": "Product Description",
+        "PRICE": "Product Price"
+      },
+      "VALIDATION": {}
+    }
+  }
+}

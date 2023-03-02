@@ -1,0 +1,31 @@
+{
+  "DEFAULT_LAYOUT": {
+    "HEADER": {
+      "HOME": "Trang Chu",
+      "PRODUCT": "San Phan",
+      "PROFILE": "Trang Ca Nhan",
+      "LOGOUT": "Dang Xuat",
+      "LOGIN": "Dang Nhap",
+      "REGISTER": "Dang Ky"
+    }
+  },
+
+  "PRODUCT_MODULE": {
+    "CREATE_MODAL": {
+      "NAME": {
+        "PRODUCT": "Ten San Pham",
+        "IMAGE": "Hinh San Pham",
+        "CATEGORY": "Loai San Pham",
+        "BRAND": "Hang San Xuat",
+        "DESCRIPTION": "Chi Tiet San Pham",
+        "PRICE": "Gia San Pham"
+      },
+      "PLACE_HOLDER": {
+        "PRODUCT": "Ten San Pham",
+        "BRAND": "Loai San Pham",
+        "DESCRIPTION": "Chi Tiet San Pham",
+        "PRICE": "Gia San Pham"
+      }
+    }
+  }
+}
