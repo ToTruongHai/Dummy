@@ -17,6 +17,7 @@ import { IMAGE_TYPE } from "utils/constants";
 import { convertByteToMegaByte, getBase64 } from "utils/helpers";
 import { modalFormData } from "./constants";
 import ProductList from "./ProductList";
+import useServiceSWR from "hooks/useServiceSWR";
 
 type Category = {
   id: number;
@@ -30,6 +31,9 @@ const ProductPage = () => {
   const [selectCategory, setSelectCategory] = useState<Category[]>();
   const [productList, setProductList] = useState<[]>();
   const [fileImage, setFileImage] = useState<any>();
+  // const { data, isLoading } = useServiceSWR({
+  //   url: productUrlService?.getAllServiceURL,
+  // });
 
   const createProductAPI = async (input: any) => {
     try {
