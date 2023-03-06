@@ -45,7 +45,7 @@ const Input = ({
   return (
     <input
       className={`appearance-none block w-full bg-gray-200 text-gray-700
-       ${flag ? "border  border-red-500" : ""} 
+       ${flag ? "border  border-red-500 isHaveError" : ""} 
         rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white`}
       type={type}
       name={name}
