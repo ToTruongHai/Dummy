@@ -34,6 +34,14 @@ const ProductPage = () => {
   // const { data, isLoading } = useServiceSWR({
   //   url: productUrlService?.getAllServiceURL,
   // });
+  const defaultValue = {
+    productBrand: "",
+    productCategory: 1,
+    productDescription: "",
+    productImage: "",
+    productName: "",
+    productPrice: "",
+  };
 
   const createProductAPI = async (input: any) => {
     try {
@@ -169,15 +177,6 @@ const ProductPage = () => {
     return form.setFieldsValue({
       [name]: value,
     });
-  };
-
-  const defaultValue = {
-    productBrand: "",
-    productCategory: 1,
-    productDescription: "",
-    productImage: "",
-    productName: "",
-    productPrice: "",
   };
 
   const handleRenderModalContent = () => {
