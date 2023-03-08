@@ -20,6 +20,6 @@
       "lodash": ["node_modules/lodash"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "mf.config.js"],
   "exclude": ["node_modules"]
 }
