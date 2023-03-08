@@ -1,31 +1,26 @@
+const { SHARED_ITEMS, CURRENT_MF, SHARED_MF } = require("./constantsMF.js");
+
 const mfConfig = (isServer) => {
-  const SHARED_MF = {
-    DEMO_NEXTJS: { NAME: "demo-nextjs", HOST: "localhost:3000" },
-    SHARED_NEXTJS: { NAME: "micro-shared", HOST: "localhost:3002" },
-  };
-
-  const SHARED_ITEMS = {
-    DEFAULT_LAYOUT: {
-      NAME: "./DefaultLayout",
-      PATH: "./layouts/DefaultLayout",
-    },
-  };
-
-  const { DEMO_NEXTJS, SHARED_NEXTJS } = SHARED_MF ?? {};
-  const { DEFAULT_LAYOUT } = SHARED_ITEMS ?? {};
+  const { NAME } = CURRENT_MF ?? {};
+  const { SHARED_NEXTJS } = SHARED_MF ?? {};
+  const { DEFAULT_LAYOUT_HEADER, DEFAULT_LAYOUT_FOOTER } = SHARED_ITEMS ?? {};
   return {
-    name: DEMO_NEXTJS.NAME,
+    name: NAME,
     remotes: {
       [SHARED_NEXTJS.NAME]: `${SHARED_NEXTJS.NAME}@http://${
         SHARED_NEXTJS.HOST
       }/_next/static/${isServer ? "ssr" : "chunks"}/remoteEntry.js`,
     },
-    filename: "remoteEntry.js",
+    filename: `static/chunks/remoteEntry.js`,
     exposes: {
-      [DEFAULT_LAYOUT.NAME]: DEFAULT_LAYOUT.PATH,
+      [DEFAULT_LAYOUT_HEADER.NAME]: DEFAULT_LAYOUT_HEADER.PATH,
+      [DEFAULT_LAYOUT_FOOTER.NAME]: DEFAULT_LAYOUT_FOOTER.PATH,
     },
     extraOptions: {
       exposePages: true,
+    },
+    shared: {
+      // whatever else
     },
   };
 };
