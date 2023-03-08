@@ -10,4 +10,4 @@ export const IMAGE_TYPE = [
   "image/webp",
 ];
 
-export const allowPage = ["homePage", "createUserPage", "loginPage"];
+export const allowPage = ["homePage", "createUserPage", "loginPage", "testPage"];

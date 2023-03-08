@@ -8,6 +8,7 @@ import React, { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import ClientCache from "services/clientCache";
 import { getPageNameFromRouter } from "utils/helpers";
+import { navMenuData } from "./constants";
 import styles from "./Header.module.css";
 
 type Props = {
@@ -30,48 +31,7 @@ const Header = ({ users, setUser }: Props) => {
   const router = useRouter();
   const defaultLocale = ClientCache.getLocaleWithCookies();
 
-  const navMenu: Menus[] = [
-    {
-      label: t("DEFAULT_LAYOUT.HEADER.HOME"),
-      name: "homePage",
-      path: "/",
-    },
-
-    ...(isEmpty(users)
-      ? [
-          {
-            label: t("DEFAULT_LAYOUT.HEADER.REGISTER"),
-            name: "createUserPage",
-            path: "/createuser",
-          },
-          {
-            label: t("DEFAULT_LAYOUT.HEADER.LOGIN"),
-            name: "loginPage",
-            path: "/login",
-          },
-        ]
-      : [
-          {
-            label: t("DEFAULT_LAYOUT.HEADER.PRODUCT"),
-            name: "productPage",
-            path: "/product",
-          },
-          {
-            label: t("DEFAULT_LAYOUT.HEADER.PROFILE"),
-            name: "profilePage",
-            path: "/profile",
-          },
-          {
-            label: t("DEFAULT_LAYOUT.HEADER.LOGOUT"),
-            name: "logout",
-            path: "/",
-            clickBehavior: () => {
-              ClientCache.removeAuthenTokenWithCookie();
-              return setUser?.(undefined);
-            },
-          },
-        ]),
-  ];
+  const navMenu = navMenuData({ t, users, setUser, ClientCache }) as unknown as Menus[];
 
   const LocaleData: SelectData[] = [
     {

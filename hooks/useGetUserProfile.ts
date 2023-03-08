@@ -21,11 +21,8 @@ const useGetUserProfile = () => {
 
   useEffect(() => {
     const tokenCookie = ClientCache.getAuthenticationWithCookie();
-
-    const page = allowPage;
-
     if (tokenCookie === null) {
-      if (page.includes(str)) return;
+      if (allowPage.includes(str)) return;
 
       ClientCache.removeAuthenTokenWithCookie();
       router.push({

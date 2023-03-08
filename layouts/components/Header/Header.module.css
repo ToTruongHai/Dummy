@@ -11,10 +11,11 @@
 }
 
 .menu li {
-  width: 5rem;
+  width: fit-content;
   height: 3rem;
   background-color: wheat;
   margin: 0 1rem;
+  padding: 0 1rem;
 }
 .menu li a {
   width: 100%;
