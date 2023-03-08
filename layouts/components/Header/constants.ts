@@ -1,13 +1,5 @@
 import { isEmpty } from "lodash-es";
 
-
-type Menus = {
-    label: string;
-    name: string;
-    path: string;
-    clickBehavior?: () => {} | unknown;
-  };
-
 export const navMenuData = ({users = {} as any, t = (translate: string) => {}, ClientCache, setUser}: any) => [
     {
       label: t("DEFAULT_LAYOUT.HEADER.HOME"),
