@@ -2,7 +2,8 @@ import HomePage from "@/modules/HomePage";
 import type { ReactElement } from "react";
 import type { NextPageWithLayout } from "./_app";
 import dynamic from "next/dynamic";
-const DefaultLayout = dynamic(() => import("demo-nextjs/DefaultLayout"));
+import { DefaultLayout } from "@/layouts";
+
 
 const Page: NextPageWithLayout = () => {
   return <HomePage />;
