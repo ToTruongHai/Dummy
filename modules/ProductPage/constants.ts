@@ -55,8 +55,8 @@ export const modalFormData = (t: any) => [
         message: "toi thieu 5 ky tu",
       },
       max: {
-        value: 50,
-        message: "toi da 50 ky tu",
+        value: 10,
+        message: "toi da 10 ky tu",
       },
     },
   },
