@@ -39,7 +39,6 @@ const useRefForm = () => {
           const _getDataByName = formData?.[item?.name];
           return (item.value = _getDataByName ?? "");
         }
-
         return (item.value = getDataByName ?? "");
       }
     });

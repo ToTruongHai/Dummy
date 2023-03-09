@@ -33,5 +33,5 @@ const LayoutWithBreadCrumb = ({ children, pageName }: Props) => {
 };
 
 export default dynamic(() => Promise.resolve(LayoutWithBreadCrumb), {
-  ssr: false,
+  ssr: true,
 });
