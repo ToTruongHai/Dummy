@@ -13,6 +13,10 @@ const SHARED_ITEMS = {
     NAME: "./DefaultFooter",
     PATH: "./layouts/components/Footer",
   },
+  COMPONENT_TABLE: {
+    NAME: "./Table",
+    PATH: "./components/Table",
+  },
 };
 
 module.exports = { CURRENT_MF, SHARED_MF, SHARED_ITEMS };

@@ -88,6 +88,14 @@ const TestPage = () => {
         dataSource={data}
         onSelect={handleOnItemSelect}
       />
+
+      <hr />
+
+      {/* <Table
+        columns={columns}
+        dataSource={data}
+        onSelect={handleOnItemSelect}
+      /> */}
     </div>
   );
 };

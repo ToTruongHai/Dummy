@@ -12,6 +12,9 @@ type Props = {
   onSelect?: (item: any, type: any) => {} | void;
 };
 
+type MapType = "normal" | "all";
+type ResultMap = () => {} | void;
+
 const Table = ({
   columns,
   dataSource,
@@ -25,6 +28,7 @@ const Table = ({
 
   const checkBoxDataRef = useRef([]);
   const dragOver = useRef(null);
+  const theadRef = useRef(null);
 
   const handleDragCols = (newCols: any) => {
     setCols(newCols);
@@ -34,10 +38,12 @@ const Table = ({
   };
 
   const handleChecked = ({ type, item, currentSelectedID, checked }: any) => {
-    const handleType = new Map<"normal" | "all", () => {} | void>([
+    const handleType = new Map<MapType, ResultMap>([
       [
         "normal",
         () => {
+          const { allChkboxRef = {} as any } = theadRef.current ?? ({} as any);
+          allChkboxRef.current.checked = false;
           return onSelect(item, type);
         },
       ],
@@ -52,7 +58,6 @@ const Table = ({
             checkBoxDataRef.current = chkboxData;
             return onSelect(rows, type);
           }
-
           checkBoxDataRef.current = [];
           setChkbox([]);
           return onSelect([], type);
@@ -66,6 +71,7 @@ const Table = ({
   return (
     <table className="w-full">
       <TableHeader
+        ref={theadRef}
         classList={styles}
         cols={cols}
         handleDragCols={handleDragCols}

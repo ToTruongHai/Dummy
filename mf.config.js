@@ -3,7 +3,8 @@ const { SHARED_ITEMS, CURRENT_MF, SHARED_MF } = require("./constantsMF.js");
 const mfConfig = (isServer) => {
   const { NAME } = CURRENT_MF ?? {};
   const { SHARED_NEXTJS } = SHARED_MF ?? {};
-  const { DEFAULT_LAYOUT_HEADER, DEFAULT_LAYOUT_FOOTER } = SHARED_ITEMS ?? {};
+  const { DEFAULT_LAYOUT_HEADER, DEFAULT_LAYOUT_FOOTER, COMPONENT_TABLE } =
+    SHARED_ITEMS ?? {};
   return {
     name: NAME,
     remotes: {
@@ -15,6 +16,7 @@ const mfConfig = (isServer) => {
     exposes: {
       [DEFAULT_LAYOUT_HEADER.NAME]: DEFAULT_LAYOUT_HEADER.PATH,
       [DEFAULT_LAYOUT_FOOTER.NAME]: DEFAULT_LAYOUT_FOOTER.PATH,
+      [COMPONENT_TABLE.NAME]: COMPONENT_TABLE.PATH,
     },
     extraOptions: {
       exposePages: true,

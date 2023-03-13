@@ -1,5 +1,5 @@
 import useDragDrop from "hooks/useDragDrop";
-import { isEmpty } from "lodash-es";
+import { isArray, isEmpty } from "lodash-es";
 import React, { useCallback, useMemo, useRef, useState } from "react";
 import { filterDuplicate } from "../../../utils/helpers";
 
@@ -35,9 +35,23 @@ const Row = ({
     useDragDrop({
       hoverStyle: classList.over,
       behavior: "INSERTBEFORE",
-      selectable: selectable,
+      chkbox: chkbox,
       callBack: (oldIndex: any, newIndex: any) => {
         const newRows = [...rows];
+        if (isArray(oldIndex) && oldIndex.length > 1) {
+          const dataInChkbox = newRows.filter((item: any) =>
+            oldIndex?.includes(item?.key)
+          );
+          const dataNotInChkbox = newRows?.filter(
+            (item: any) => !oldIndex?.includes(item?.key)
+          );
+
+          dataInChkbox.forEach((data: any, i: any) => {
+            dataNotInChkbox?.splice(newIndex + i - 1, 0, data);
+          });
+          return handleDragRows(dataNotInChkbox);
+        }
+
         const item = newRows?.[oldIndex];
         newRows?.splice(oldIndex, 1);
         newRows?.splice(newIndex, 0, item);
@@ -56,7 +70,7 @@ const Row = ({
         return isHaveRender ? (
           <td key={index}>{item?.render(_columnData, columnData)}</td>
         ) : (
-          <td key={index} drag-over={cols[index] === dragOver}>
+          <td key={index} drag-over={(cols[index] === dragOver).toString()}>
             {_columnData}
           </td>
         );
@@ -65,7 +79,7 @@ const Row = ({
     [cols]
   );
 
-  const processingSelectData = (item: any, index: any) => (e: any) => {
+  const processingSelectData = async (item: any, e: any) => {
     const isChecked = e.target.checked;
     const checkboxData = checkBoxDataRef.current ?? [];
 
@@ -80,14 +94,21 @@ const Row = ({
       });
     }
 
-    checkBoxDataRef.current.forEach((e: any, index: any) => {
-      if (e.key === item.key) return checkBoxDataRef.current.splice(index, 1);
+    const tmpRef = checkBoxDataRef.current;
+
+    await tmpRef.forEach((e: any, index: any) => {
+      if (e === item.key) return tmpRef.splice(index, 1);
     });
 
-    const _checkbox = chkbox.map((e: any, index: any) => {
+    checkBoxDataRef.current = tmpRef.flat();
+
+    await chkbox.forEach((e: any, index: any) => {
       if (e === item.key) return chkbox.splice(index, 1);
     });
-    setChkbox(_checkbox);
+
+    const _checkbox = chkbox;
+
+    setChkbox(_checkbox.flat());
 
     return handleChecked({
       type: "normal",
@@ -121,7 +142,7 @@ const Row = ({
             <td key={index + 1000}>
               <input
                 type="checkbox"
-                onChange={processingSelectData(item, index)}
+                onChange={(e: any) => processingSelectData(item, e)}
                 checked={isChecked}
               />
             </td>

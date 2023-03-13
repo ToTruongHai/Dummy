@@ -8,7 +8,7 @@ type Props = {
   behavior: BehaviorType;
   setData?: any;
   data?: any;
-  selectable?: boolean;
+  chkbox: [];
   callBack?: (itemCurrentIndex: any, itemNewIndex: any) => {} | void;
 };
 
@@ -20,7 +20,7 @@ type DNDType = {
   onDragLeave?: (e: any) => {} | void;
 };
 
-const useDragDrop = ({ hoverStyle, behavior, callBack, selectable }: Props) => {
+const useDragDrop = ({ hoverStyle, behavior, callBack, chkbox }: Props) => {
   const dragDropContainerRef = useRef(null);
   const dragDataRef = useRef(null);
   const closestId = "dragDropClosest";
@@ -61,9 +61,12 @@ const useDragDrop = ({ hoverStyle, behavior, callBack, selectable }: Props) => {
 
           const itemCurrentIndex = dataRef.sectionRowIndex;
           const itemNewIndex = el.sectionRowIndex;
+          const isMultiple =
+            isArray(chkbox) && !isEmpty(chkbox) && chkbox.length > 1;
+          const currentIndex = isMultiple ? chkbox : itemCurrentIndex;
 
           if (typeof callBack === "function")
-            return callBack(itemCurrentIndex, itemNewIndex);
+            return callBack(currentIndex, itemNewIndex);
         },
       ],
       [
