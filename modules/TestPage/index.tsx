@@ -5,22 +5,18 @@ const columns = [
   {
     title: "Name",
     dataIndex: "name",
-    key: "name",
     render: (text: any) => <a>{text}</a>,
   },
   {
     title: "Age",
     dataIndex: "age",
-    key: "age",
   },
   {
     title: "Address",
     dataIndex: "address",
-    key: "address",
   },
   {
     title: "Tags",
-    key: "tags",
     dataIndex: "tags",
     render: (_: any, { tags }: any) => (
       <>
@@ -36,7 +32,7 @@ const columns = [
   },
   {
     title: "Action",
-    key: "action",
+    dataIndex: "action",
     render: (_: any, record: any) => (
       <span>
         <a>Invite {record.name}</a>
@@ -67,16 +63,31 @@ const data = [
     address: "Sydney No. 1 Lake Park",
     tags: ["cool", "teacher"],
   },
+  {
+    key: "4",
+    name: "Joe Mama",
+    age: 22,
+    address: "Sydney No. 1 Lake Park",
+    tags: ["real", "shit"],
+  },
 ];
 
 const TestPage = () => {
+  const handleOnItemSelect = (item: any) => {
+    console.log({ item });
+  };
+
   return (
     <div>
       <h3>Test Table</h3>
       <br />
       <br />
       <br />
-      <Table columns={columns} dataSource={data} />
+      <Table
+        columns={columns}
+        dataSource={data}
+        onSelect={handleOnItemSelect}
+      />
     </div>
   );
 };
