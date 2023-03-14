@@ -39,6 +39,7 @@ const TableHeader = forwardRef<RefFowardTypeHandle, Props>(
     const handleDragStart = (e: any) => {
       const { id } = e.target;
       const idx = cols.map((e: any) => e.title).indexOf(id);
+      dragOver = id;
       e.dataTransfer.setData("colIdx", idx);
     };
 
@@ -48,8 +49,7 @@ const TableHeader = forwardRef<RefFowardTypeHandle, Props>(
 
     const handleDragOver = (e: any) => e.preventDefault();
     const handleDragEnter = (e: any) => {
-      const { id } = e.target;
-      dragOver = id;
+      if (isEmpty(dragOver)) return;
       return e.target.classList.add(`${classList.thover}`);
     };
     const handleDragLeave = (e: any) => {
@@ -60,11 +60,11 @@ const TableHeader = forwardRef<RefFowardTypeHandle, Props>(
       const { id } = e.target;
       const droppedColIdx = cols.map((e: any) => e.title).indexOf(id);
       const draggedColIdx = e.dataTransfer.getData("colIdx");
+      if (isEmpty(draggedColIdx))
+        return e.target.classList.remove(`${classList.thover}`);
       const tempCols = [...cols];
-
       tempCols[draggedColIdx] = cols[droppedColIdx];
       tempCols[droppedColIdx] = cols[draggedColIdx];
-
       e.target.classList.remove(`${classList.thover}`);
       handleDragCols(tempCols);
       dragOver = "";
@@ -72,7 +72,7 @@ const TableHeader = forwardRef<RefFowardTypeHandle, Props>(
 
     const handleRenderHeader = useMemo(() => {
       if (isEmpty(cols)) return;
-      return cols?.map((item: any, index: any) => (
+      return cols?.map((item: any) => (
         <th
           drag-over={(item.title === dragOver).toString()}
           id={item?.title}
@@ -96,7 +96,7 @@ const TableHeader = forwardRef<RefFowardTypeHandle, Props>(
     };
 
     return (
-      <thead className="demoNextjs-text-left demoNextjs-bg-gray-100">
+      <thead className="text-left bg-gray-100">
         <tr>
           {draggable && <th className="text-center p-1">#</th>}
           {selectable && (

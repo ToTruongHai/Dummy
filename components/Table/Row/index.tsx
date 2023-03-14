@@ -16,6 +16,7 @@ type Props = {
   setChkbox: any;
   chkbox: any;
   checkBoxDataRef: any;
+  hiddenSpanRef: any;
 };
 
 const Row = ({
@@ -30,26 +31,24 @@ const Row = ({
   setChkbox,
   chkbox,
   checkBoxDataRef,
+  hiddenSpanRef,
 }: Props) => {
   const { dragDropContainerRef, dragDropAttribute, closestId } =
     useDragDrop({
       hoverStyle: classList.over,
       behavior: "INSERTBEFORE",
       chkbox: chkbox,
-      callBack: (oldIndex: any, newIndex: any) => {
+      hiddenSpanRef: hiddenSpanRef,
+      callBack: (oldIndex: any, newIndex: any, isDragMultiple: boolean) => {
         const newRows = [...rows];
-        if (isArray(oldIndex) && oldIndex.length > 1) {
-          const dataInChkbox = newRows.filter((item: any) =>
-            oldIndex?.includes(item?.key)
-          );
-          const dataNotInChkbox = newRows?.filter(
-            (item: any) => !oldIndex?.includes(item?.key)
-          );
-
-          dataInChkbox.forEach((data: any, i: any) => {
-            dataNotInChkbox?.splice(newIndex + i - 1, 0, data);
+        if (isArray(oldIndex) && oldIndex.length > 1 && isDragMultiple) {
+          oldIndex.forEach((ele: any) => {
+            const data = newRows?.find((e: any) => e.key === ele) as never;
+            const getEleIndex = newRows?.findIndex((e: any) => e.key === ele);
+            newRows?.splice(getEleIndex, 1);
+            newRows?.splice(newIndex, 0, data);
           });
-          return handleDragRows(dataNotInChkbox);
+          return handleDragRows(newRows);
         }
 
         const item = newRows?.[oldIndex];
@@ -82,7 +81,6 @@ const Row = ({
   const processingSelectData = async (item: any, e: any) => {
     const isChecked = e.target.checked;
     const checkboxData = checkBoxDataRef.current ?? [];
-
     if (isChecked) {
       checkBoxDataRef.current = filterDuplicate([...checkboxData, item] as any);
       setChkbox((prevState: any) => [...prevState, item.key]);
@@ -93,23 +91,15 @@ const Row = ({
         checked: isChecked,
       });
     }
-
     const tmpRef = checkBoxDataRef.current;
-
     await tmpRef.forEach((e: any, index: any) => {
-      if (e === item.key) return tmpRef.splice(index, 1);
+      if (e.key === item.key) return tmpRef.splice(index, 1);
     });
-
     checkBoxDataRef.current = tmpRef.flat();
-
     await chkbox.forEach((e: any, index: any) => {
       if (e === item.key) return chkbox.splice(index, 1);
     });
-
-    const _checkbox = chkbox;
-
-    setChkbox(_checkbox.flat());
-
+    setChkbox(chkbox.flat());
     return handleChecked({
       type: "normal",
       item: checkBoxDataRef.current,

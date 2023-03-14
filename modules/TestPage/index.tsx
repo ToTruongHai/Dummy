@@ -77,6 +77,10 @@ const TestPage = () => {
     console.log({ item });
   };
 
+  const handleOnDrag = (item: any, type: any) => {
+    console.log({ item, type });
+  };
+
   return (
     <div>
       <h3>Test Table</h3>
@@ -87,15 +91,11 @@ const TestPage = () => {
         columns={columns}
         dataSource={data}
         onSelect={handleOnItemSelect}
+        onDrag={handleOnDrag}
+        draggableRows={true}
+        draggableHeader={true}
+        selectable={true}
       />
-
-      <hr />
-
-      {/* <Table
-        columns={columns}
-        dataSource={data}
-        onSelect={handleOnItemSelect}
-      /> */}
     </div>
   );
 };
